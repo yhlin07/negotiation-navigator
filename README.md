@@ -15,6 +15,11 @@ Interactive one-page guides that distill chaos into clarity:
 - **Clear target packages** — Know exactly what "good" looks like
 - **Red lines highlighted** — Never cross your bottom line
 
+## Demo
+
+### Mayor Gabriel Guide
+![Mayor Gabriel Demo](./demos/mayor-gabriel-demo.gif)
+
 ## Guides
 
 | Guide | Case Type | Key Features |
