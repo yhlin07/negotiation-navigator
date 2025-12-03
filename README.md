@@ -17,8 +17,8 @@ Interactive one-page guides that distill chaos into clarity:
 
 ## Guides
 
-| Guide | Demo | Key Features |
-|-------|------|--------------|
+| Guide | Case Type | Key Features |
+|-------|-----------|--------------|
 | [Mayor Gabriel](https://mayor-gabriel-guide.vercel.app) | 6-party multi-issue | Alliance mapping, 5-issue calculator, round-by-round tactics |
 | [Moms.com](https://moms-negotiation-guide.vercel.app) | 2-party licensing deal | Revenue calculator, payment timing optimizer, BATNA comparison |
 
@@ -37,7 +37,7 @@ These tools are designed for the negotiation table — quick reference, instant 
 
 ## Usage
 
-Open any `.html` file in a browser. That's it.
+Click the guide links above to access the live tools. No installation needed.
 
 For the best experience during actual negotiations:
 1. Open on a tablet or laptop
@@ -46,4 +46,4 @@ For the best experience during actual negotiations:
 
 ---
 
-*Built for UCLA Anderson MBA Negotiations course, Fall 2025*
+*Distilling complex negotiation cases into interactive decision tools*
