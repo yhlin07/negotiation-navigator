@@ -24,8 +24,9 @@ Interactive one-page guides that distill chaos into clarity:
 
 | Guide | Case Type | Key Features |
 |-------|-----------|--------------|
-| [Mayor Gabriel](https://mayor-gabriel-guide.vercel.app) | 6-party multi-issue | Alliance mapping, 5-issue calculator, round-by-round tactics |
-| [Moms.com](https://moms-negotiation-guide.vercel.app) | 2-party licensing deal | Revenue calculator, payment timing optimizer, BATNA comparison |
+| [Mayor Gabriel](https://negotiation-navigator.vercel.app/mayor-gabriel) | 6-party multi-issue | Alliance mapping, 5-issue calculator, round-by-round tactics |
+| [Mayor Angula](https://negotiation-navigator.vercel.app/mayor-angula) | 6-party Round 2 | New mayor perspective, 6-issue calculator, must-change rule |
+| [Moms.com](https://negotiation-navigator.vercel.app/moms) | 2-party licensing deal | Revenue calculator, payment timing optimizer, BATNA comparison |
 
 ## Philosophy
 

@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayor Angula - Fillmore Lawns Round 2 Strategy Guide</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #1a202c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1001;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            background: #2d3748;
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #134e4a;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+            border-bottom: 3px solid #0f766e;
+            padding-bottom: 15px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+
+        .new-mayor-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-left: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .section h2 {
+            color: #134e4a;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+        }
+
+        .section h2 .icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .critical {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 3px solid #dc2626;
+        }
+
+        .must-change {
+            background: linear-gradient(135deg, #fefce8 0%, #fef08a 100%);
+            border: 3px solid #ca8a04;
+        }
+
+        .priority-p0 {
+            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            border: 2px solid #22c55e;
+        }
+
+        .priority-p1 {
+            background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%);
+            border: 2px solid #14b8a6;
+        }
+
+        .priority-p2 {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            border: 2px solid #6366f1;
+        }
+
+        .scoring-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .scoring-table th {
+            background: #134e4a;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .scoring-table td {
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+        }
+
+        .scoring-table tr:nth-child(even) {
+            background: #f7fafc;
+        }
+
+        .highlight-best {
+            background: #22c55e !important;
+            color: white;
+            font-weight: bold;
+        }
+
+        .highlight-worst {
+            background: #ef4444 !important;
+            color: white;
+        }
+
+        .highlight-negative {
+            background: #7f1d1d !important;
+            color: white;
+            font-weight: bold;
+        }
+
+        .mermaid {
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .quick-ref {
+            background: #134e4a;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .quick-ref h3 {
+            color: #f7fafc;
+            margin-bottom: 10px;
+        }
+
+        .quick-ref ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .quick-ref li {
+            padding: 5px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .quick-ref .label {
+            color: #a7f3d0;
+        }
+
+        .quick-ref .value {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        .strategy-box {
+            background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+            border-left: 5px solid #14b8a6;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box {
+            background: #fef2f2;
+            border-left: 5px solid #ef4444;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .special-rule-box {
+            background: linear-gradient(135deg, #fefce8 0%, #fef08a 100%);
+            border-left: 5px solid #ca8a04;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #134e4a;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            font-size: 1.1em;
+            z-index: 1000;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Calculator Styles */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .calc-issue {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #cbd5e0;
+        }
+
+        .calc-issue h3 {
+            color: #134e4a;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        .calc-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .calc-option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .calc-option:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+        }
+
+        .calc-option input[type="radio"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .calc-option[data-priority="p0"] {
+            border-left: 4px solid #22c55e;
+        }
+
+        .calc-option[data-priority="p1"] {
+            border-left: 4px solid #14b8a6;
+        }
+
+        .calc-option[data-priority="danger"] {
+            border-left: 4px solid #dc2626;
+        }
+
+        .calc-option:has(input[type="radio"]:checked) {
+            background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%);
+            border: 2px solid #14b8a6;
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+        }
+
+        .calc-option:has(input[type="radio"]:checked) .option-text {
+            color: #0f766e;
+            font-weight: bold;
+        }
+
+        .option-text {
+            flex: 1;
+            font-size: 0.95em;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #134e4a 0%, #0f766e 100%);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .score-number {
+            font-size: 5em;
+            font-weight: bold;
+            color: #fbbf24;
+            text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .score-label {
+            font-size: 1.5em;
+            color: #a7f3d0;
+            margin-bottom: 20px;
+        }
+
+        .score-verdict {
+            font-size: 1.6em;
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 50px;
+            margin: 20px auto;
+            max-width: 500px;
+        }
+
+        .verdict-excellent {
+            background: #22c55e;
+            color: white;
+        }
+
+        .verdict-good {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .verdict-poor {
+            background: #ef4444;
+            color: white;
+        }
+
+        .verdict-neutral {
+            background: #64748b;
+            color: white;
+        }
+
+        .reset-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+
+        .persona-card {
+            background: linear-gradient(135deg, #134e4a 0%, #0f766e 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .persona-card h3 {
+            color: #a7f3d0;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .persona-trait {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin: 3px;
+            font-size: 0.9em;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th {
+            background: #134e4a;
+            color: white;
+            padding: 12px;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            border: 1px solid #cbd5e0;
+            text-align: center;
+        }
+
+        .comparison-table .gabriel {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .comparison-table .angula {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        /* Language switching */
+        .zh { display: block; }
+        .en { display: none; }
+        body.en-mode .zh { display: none; }
+        body.en-mode .en { display: block; }
+
+        /* Fix for table cells */
+        th.zh, td.zh { display: table-cell; }
+        th.en, td.en { display: none; }
+        body.en-mode th.zh, body.en-mode td.zh { display: none; }
+        body.en-mode th.en, body.en-mode td.en { display: table-cell; }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timer {
+                position: static;
+                margin-bottom: 20px;
+            }
+
+            .lang-toggle {
+                position: static;
+                margin-bottom: 10px;
+                display: block;
+                text-align: center;
+            }
+
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .score-number {
+                font-size: 3em;
+            }
+        }
+    </style>
+</head>
+<body class="en-mode">
+    <div class="lang-toggle" onclick="toggleLanguage()">EN / ZH</div>
+
+    <div class="timer">
+        <span class="zh">投票時間 Vote Times: <strong>~20min</strong> | <strong>~50min</strong></span>
+        <span class="en">Vote Times: <strong>~20min</strong> | <strong>~50min</strong></span>
+    </div>
+
+    <div class="container">
+        <h1>
+            <span class="zh">Mayor Angula 談判指南</span>
+            <span class="en">Mayor Angula Strategy Guide</span>
+            <span class="new-mayor-badge">
+                <span class="zh">新市長 Round 2</span>
+                <span class="en">New Mayor Round 2</span>
+            </span>
+        </h1>
+        <p class="subtitle">
+            <span class="zh">Fillmore Lawns Development - 第二輪戰略指南 | 人民的市長</span>
+            <span class="en">Fillmore Lawns Development - Round 2 Strategy Guide | The People's Mayor</span>
+        </p>
+
+        <!-- Persona Card -->
+        <div class="persona-card">
+            <h3>
+                <span class="zh">你的角色背景 Your Character</span>
+                <span class="en">Your Character Background</span>
+            </h3>
+            <p class="zh">
+                你是新上任的 Mayor Angula，以「人民代言人」形象當選。你來自工人階級家庭，靠自己念完法學院，
+                有「強硬而真誠」的律師名聲。你擊敗了親商派的前任 Mayor Gabriel，承諾為普通市民而非大企業發聲。
+            </p>
+            <p class="en">
+                You are newly elected Mayor Angula, elected as "the people's champion." From a working-class background,
+                self-supported through law school, known as a tough and earnest lawyer. You defeated the pro-business
+                Mayor Gabriel, promising to fight for ordinary citizens, not big corporations.
+            </p>
+            <div style="margin-top: 15px;">
+                <span class="persona-trait zh">工人階級出身</span>
+                <span class="persona-trait zh">進步派立場</span>
+                <span class="persona-trait zh">反對過度補貼開發商</span>
+                <span class="persona-trait zh">重視低收入住房</span>
+                <span class="persona-trait zh">必須改變Round 1結果</span>
+                <span class="persona-trait en">Working-class roots</span>
+                <span class="persona-trait en">Progressive platform</span>
+                <span class="persona-trait en">Against developer subsidies</span>
+                <span class="persona-trait en">Prioritizes affordable housing</span>
+                <span class="persona-trait en">Must change Round 1 deal</span>
+            </div>
+        </div>
+
+        <!-- CRITICAL SPECIAL RULE -->
+        <div class="section must-change full-width">
+            <h2>
+                <span class="icon">!!</span>
+                <span class="zh">特殊規則：必須改變！ MUST CHANGE RULE</span>
+                <span class="en">!! SPECIAL RULE: MUST CHANGE!</span>
+            </h2>
+            <div class="special-rule-box">
+                <p class="zh" style="font-size: 1.3em; font-weight: bold; color: #92400e;">
+                    你不能同意任何讓 Round 1 協議「完全不變」的提案！<br>
+                    至少要在一個議題上做出改變，才能展現新市長的權威。
+                </p>
+                <p class="en" style="font-size: 1.3em; font-weight: bold; color: #92400e;">
+                    You CANNOT agree to any deal that leaves Round 1 agreement completely unchanged!<br>
+                    Must change at least ONE issue to assert your authority as new mayor.
+                </p>
+                <p style="margin-top: 15px; color: #78350f;">
+                    <span class="zh">如果 Round 1 沒有達成協議，則此規則不適用。</span>
+                    <span class="en">If Round 1 had no agreement, this rule does not apply.</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Critical Voting Rules -->
+        <div class="section critical full-width">
+            <h2>
+                <span class="icon">!!</span>
+                <span class="zh">關鍵數字 Critical Numbers</span>
+                <span class="en">Critical Numbers</span>
+            </h2>
+            <div class="mermaid">
+                graph LR
+                    A["Stellar Cove<br/>提案 Proposes"] --> B{"5票 5 Votes<br/>含Stellar Cove"}
+                    B -->|"Pass 通過"| C["Project Proceeds<br/>項目進行"]
+                    B -->|"Fail 未過"| D["Continue<br/>繼續談判"]
+                    E["Minimum 最低<br/>40分"] --> F{"Vote Decision<br/>投票決策"}
+                    G["Target 目標<br/>95分"] --> F
+                    H["Maximum 最高<br/>120分"] --> F
+                    F -->|"≥40分"| I["Vote YES"]
+                    F -->|"<40分"| J["Vote NO"]
+
+                    style A fill:#ccfbf1,stroke:#0f766e,stroke-width:2px
+                    style C fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+                    style D fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+                    style E fill:#fef3c7,stroke:#f59e0b,stroke-width:2px
+                    style G fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+                    style H fill:#dbeafe,stroke:#3b82f6,stroke-width:2px
+            </div>
+            <div class="grid" style="margin-top: 20px;">
+                <div class="warning-box">
+                    <h3 class="zh">投票門檻</h3>
+                    <h3 class="en">Voting Thresholds</h3>
+                    <ul>
+                        <li class="zh"><strong>最低接受：40分</strong> - 低於此不能投 Yes</li>
+                        <li class="zh"><strong>目標分數：95分</strong> - 理想成績</li>
+                        <li class="zh"><strong>理論最高：120分</strong></li>
+                        <li class="en"><strong>Minimum: 40 points</strong> - Cannot vote Yes below this</li>
+                        <li class="en"><strong>Target: 95 points</strong> - Ideal outcome</li>
+                        <li class="en"><strong>Maximum: 120 points</strong></li>
+                    </ul>
+                </div>
+                <div class="strategy-box">
+                    <h3 class="zh">Round 2 投票時程</h3>
+                    <h3 class="en">Round 2 Vote Schedule</h3>
+                    <ul>
+                        <li class="zh">第一輪投票：約 <strong>20分鐘</strong></li>
+                        <li class="zh">第二輪投票：約 <strong>50分鐘</strong></li>
+                        <li class="zh">只有 <strong>2次投票機會</strong>！</li>
+                        <li class="en">First vote: ~<strong>20 minutes</strong></li>
+                        <li class="en">Second vote: ~<strong>50 minutes</strong></li>
+                        <li class="en">Only <strong>2 voting opportunities</strong>!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Priority System -->
+        <div class="grid">
+            <!-- P0 Core -->
+            <div class="section priority-p0">
+                <h2>
+                    <span class="icon">!!</span>
+                    <span class="zh">P0 核心武器 Core Weapon (40分)</span>
+                    <span class="en">P0 Core Weapon (40 pts)</span>
+                </h2>
+                <div class="strategy-box">
+                    <strong class="zh">這一項就能達到最低門檻！絕對優先！</strong>
+                    <strong class="en">This ONE issue can hit minimum threshold! Top priority!</strong>
+                </div>
+                <table class="scoring-table">
+                    <thead>
+                        <tr>
+                            <th class="zh">議題</th>
+                            <th class="zh">最佳選項</th>
+                            <th class="zh">分數</th>
+                            <th class="en">Issue</th>
+                            <th class="en">Best Option</th>
+                            <th class="en">Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="zh"><strong>低收入住房 Low-income</strong></td>
+                            <td class="zh highlight-best">15% (最高)</td>
+                            <td class="zh highlight-best">40分</td>
+                            <td class="en"><strong>Low-income Housing</strong></td>
+                            <td class="en highlight-best">15% (Max)</td>
+                            <td class="en highlight-best">40 pts</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px; color: #065f46; font-weight: bold;">
+                    <span class="zh">你的競選承諾！15% = 巨大政治勝利</span>
+                    <span class="en">Your campaign promise! 15% = Huge political win</span>
+                </p>
+            </div>
+
+            <!-- P1 Important -->
+            <div class="section priority-p1">
+                <h2>
+                    <span class="icon">!!</span>
+                    <span class="zh">P1 重要議題 Important (60分)</span>
+                    <span class="en">P1 Important Issues (60 pts)</span>
+                </h2>
+                <table class="scoring-table">
+                    <thead>
+                        <tr>
+                            <th class="zh">議題</th>
+                            <th class="zh">最佳</th>
+                            <th class="zh">分數</th>
+                            <th class="en">Issue</th>
+                            <th class="en">Best</th>
+                            <th class="en">Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="zh"><strong>物業組合</strong></td>
+                            <td class="zh">70-30 住宅</td>
+                            <td class="zh">20分</td>
+                            <td class="en"><strong>Property Mix</strong></td>
+                            <td class="en">70-30 Residential</td>
+                            <td class="en">20 pts</td>
+                        </tr>
+                        <tr>
+                            <td class="zh"><strong>綠地空間</strong></td>
+                            <td class="zh">20 acres</td>
+                            <td class="zh">20分</td>
+                            <td class="en"><strong>Green Space</strong></td>
+                            <td class="en">20 acres</td>
+                            <td class="en">20 pts</td>
+                        </tr>
+                        <tr>
+                            <td class="zh"><strong>IIF 補貼（新）</strong></td>
+                            <td class="zh">$250M</td>
+                            <td class="zh">20分</td>
+                            <td class="en"><strong>IIF Funds (NEW)</strong></td>
+                            <td class="en">$250M</td>
+                            <td class="en">20 pts</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- P2 Flexible -->
+            <div class="section priority-p2">
+                <h2>
+                    <span class="icon">!!</span>
+                    <span class="zh">P2 可交易籌碼 Tradeable (20分)</span>
+                    <span class="en">P2 Tradeable Chips (20 pts)</span>
+                </h2>
+                <table class="scoring-table">
+                    <thead>
+                        <tr>
+                            <th class="zh">議題</th>
+                            <th class="zh">最佳</th>
+                            <th class="zh">分數</th>
+                            <th class="en">Issue</th>
+                            <th class="en">Best</th>
+                            <th class="en">Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="zh">建築高度</td>
+                            <td class="zh">600 ft</td>
+                            <td class="zh">10分</td>
+                            <td class="en">Building Height</td>
+                            <td class="en">600 ft</td>
+                            <td class="en">10 pts</td>
+                        </tr>
+                        <tr>
+                            <td class="zh">娛樂場館</td>
+                            <td class="zh">4 venues</td>
+                            <td class="zh">10分</td>
+                            <td class="en">Entertainment</td>
+                            <td class="en">4 venues</td>
+                            <td class="en">10 pts</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 10px; color: #4338ca; font-size: 0.95em;">
+                    <span class="zh">這兩項可以「送」給 Stellar Cove 換取 P0/P1 讓步</span>
+                    <span class="en">Can "give" these to Stellar Cove for P0/P1 concessions</span>
+                </p>
+            </div>
+
+            <!-- DANGER: IIF Negative -->
+            <div class="section" style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border: 3px solid #dc2626;">
+                <h2>
+                    <span class="icon">!!</span>
+                    <span class="zh">危險！IIF $1B = 負分！</span>
+                    <span class="en">DANGER! IIF $1B = NEGATIVE!</span>
+                </h2>
+                <table class="scoring-table">
+                    <tbody>
+                        <tr>
+                            <td>$250 million</td>
+                            <td class="highlight-best">+20</td>
+                        </tr>
+                        <tr>
+                            <td>$500 million</td>
+                            <td>+4</td>
+                        </tr>
+                        <tr>
+                            <td>$750 million</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>$1 billion</td>
+                            <td class="highlight-negative">-10</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="warning-box">
+                    <p class="zh">接受 $1B = 你看起來被開發商牽著走！政治災難！</p>
+                    <p class="en">Accepting $1B = You look controlled by developers! Political disaster!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gabriel vs Angula Comparison -->
+        <div class="section full-width">
+            <h2>
+                <span class="icon">!!</span>
+                <span class="zh">優先級對比：Gabriel vs Angula（完全相反！）</span>
+                <span class="en">Priority Comparison: Gabriel vs Angula (Completely Opposite!)</span>
+            </h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th class="zh">議題</th>
+                        <th class="zh">Gabriel 偏好</th>
+                        <th class="zh">Angula 偏好</th>
+                        <th class="en">Issue</th>
+                        <th class="en">Gabriel Preference</th>
+                        <th class="en">Angula Preference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="zh">物業組合</td>
+                        <td class="gabriel zh">30-70 商業 (21分)</td>
+                        <td class="angula zh">70-30 住宅 (20分)</td>
+                        <td class="en">Property Mix</td>
+                        <td class="gabriel en">30-70 Commercial (21pts)</td>
+                        <td class="angula en">70-30 Residential (20pts)</td>
+                    </tr>
+                    <tr>
+                        <td class="zh">綠地空間</td>
+                        <td class="gabriel zh">14 acres (30分)</td>
+                        <td class="angula zh">20 acres (20分)</td>
+                        <td class="en">Green Space</td>
+                        <td class="gabriel en">14 acres (30pts)</td>
+                        <td class="angula en">20 acres (20pts)</td>
+                    </tr>
+                    <tr>
+                        <td class="zh">建築高度</td>
+                        <td class="gabriel zh">800 ft (25分)</td>
+                        <td class="angula zh">600 ft (10分)</td>
+                        <td class="en">Building Height</td>
+                        <td class="gabriel en">800 ft (25pts)</td>
+                        <td class="angula en">600 ft (10pts)</td>
+                    </tr>
+                    <tr>
+                        <td class="zh">低收入住房</td>
+                        <td class="gabriel zh">低優先 (max 10分)</td>
+                        <td class="angula zh">最高優先！(max 40分)</td>
+                        <td class="en">Low-income</td>
+                        <td class="gabriel en">Low priority (max 10pts)</td>
+                        <td class="angula en">TOP PRIORITY! (max 40pts)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- INTERACTIVE CALCULATOR -->
+        <div class="section full-width" style="background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%); border: 3px solid #0f766e;">
+            <h2>
+                <span class="icon">!!</span>
+                <span class="zh">互動式計分器 Interactive Calculator（6個議題）</span>
+                <span class="en">Interactive Score Calculator (6 Issues)</span>
+            </h2>
+            <p style="text-align: center; color: #0f766e; font-weight: bold; margin-bottom: 20px;">
+                <span class="zh">點選 Stellar Cove 提案的選項，自動算分！</span>
+                <span class="en">Click Stellar Cove's proposal options to auto-calculate!</span>
+            </p>
+
+            <div class="calculator-grid">
+                <!-- Issue 1: Property Mix -->
+                <div class="calc-issue">
+                    <h3>Issue 1: Property Mix</h3>
+                    <div class="calc-options">
+                        <label class="calc-option">
+                            <input type="radio" name="issue1" value="0">
+                            <span class="option-text">Option 1: 30-70 Commercial <strong>(0)</strong></span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="issue1" value="5">
+                            <span class="option-text">Option 2: 50-50 Equal <strong>(5)</strong></span>
+                        </label>
+                        <label class="calc-option" data-priority="p1">
+                            <input type="radio" name="issue1" value="20">
+                            <span class="option-text">Option 3: 70-30 Residential <strong>(20)</strong></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Issue 2: Low-income Housing -->
+                <div class="calc-issue">
+                    <h3>Issue 2: Low-income Housing</h3>
+                    <div class="calc-options">
+                        <label class="calc-option">
+                            <input type="radio" name="issue2" value="0">
+                            <span class="option-text">Option 1: 6% <strong>(0)</strong></span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="issue2" value="10">
+                            <span class="option-text">Option 2: 9% <strong>(10)</strong></span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="issue2" value="20">
+                            <span class="option-text">Option 3: 12% <strong>(20)</strong></span>
+                        </label>
+                        <label class="calc-option" data-priority="p0">
+                            <input type="radio" name="issue2" value="40">
+                            <span class="option-text">Option 4: 15% <strong>(40)</strong></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Issue 3: Green Space -->
+                <div class="calc-issue">
+                    <h3>Issue 3: Green Space</h3>
+                    <div class="calc-options">
+                        <label class="calc-option">
+                            <input type="radio" name="issue3" value="0">
+                            <span class="option-text">Option 1: 14 acres <strong>(0)</strong></span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="issue3" value="5">
+                            <span class="option-text">Option 2: 16 acres <strong>(5)</strong></span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="issue3" value="5">
+                            <span class="option-text">Option 3: 18 acres <strong>(5)</strong></span>
+                        </label>
+                        <label class="calc-option" data-priority="p1">
+                            <input type="radio" name="issue3" value="20">
+                            <span class="option-text">Option 4: 20 acres <strong>(20)</strong></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Issue 4: Building Height -->
+                <div class="calc-issue">
+                    <h3>Issue 4: Building Height</h3>
+                    <div class="calc-options">
+                        <label class="calc-option">
+                            <input type="radio" name="issue4" value="5">
+                            <span class="option-text">Option 1: 400 ft <strong>(5)</strong></span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="issue4" value="5">
+                            <span class="option-text">Option 2: 500 ft <strong>(5)</strong></span>
+                        </label>
+                        <label class="calc-option" data-priority="p1">
+                            <input type="radio" name="issue4" value="10">
+                            <span class="option-text">Option 3: 600 ft <strong>(10)</strong></span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="issue4" value="0">
+                            <span class="option-text">Option 4: 700 ft <strong>(0)</strong></span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="issue4" value="0">
+                            <span class="option-text">Option 5: 800 ft <strong>(0)</strong></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Issue 5: Entertainment Complex -->
+                <div class="calc-issue">
+                    <h3>Issue 5: Entertainment Complex</h3>
+                    <div class="calc-options">
+                        <label class="calc-option">
+                            <input type="radio" name="issue5" value="0">
+                            <span class="option-text">Option 1: 0 venues <strong>(0)</strong></span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="issue5" value="0">
+                            <span class="option-text">Option 2: 1 venue <strong>(0)</strong></span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="issue5" value="5">
+                            <span class="option-text">Option 3: 2 venues <strong>(5)</strong></span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="issue5" value="5">
+                            <span class="option-text">Option 4: 3 venues <strong>(5)</strong></span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="issue5" value="10">
+                            <span class="option-text">Option 5: 4 venues <strong>(10)</strong></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Issue 6: IIF Funds (NEW!) -->
+                <div class="calc-issue" style="border: 3px solid #dc2626;">
+                    <h3 style="color: #dc2626;">Issue 6: IIF Funds (NEW!)</h3>
+                    <div class="calc-options">
+                        <label class="calc-option" data-priority="p1">
+                            <input type="radio" name="issue6" value="20">
+                            <span class="option-text">Option 1: $250M <strong>(+20)</strong></span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="issue6" value="4">
+                            <span class="option-text">Option 2: $500M <strong>(+4)</strong></span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="radio" name="issue6" value="0">
+                            <span class="option-text">Option 3: $750M <strong>(0)</strong></span>
+                        </label>
+                        <label class="calc-option" data-priority="danger">
+                            <input type="radio" name="issue6" value="-10">
+                            <span class="option-text" style="color: #dc2626;">Option 4: $1B <strong>(-10)</strong></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Score Display -->
+            <div id="scoreDisplay" class="score-display">
+                <div class="score-number" id="totalScore">0</div>
+                <div class="score-label">
+                    <span class="zh">總分 Total Score</span>
+                    <span class="en">Total Score</span>
+                </div>
+                <div class="score-verdict verdict-neutral" id="verdict">
+                    <span class="zh">請選擇選項 Select options</span>
+                    <span class="en">Select all options</span>
+                </div>
+                <button onclick="resetCalculator()" class="reset-btn">
+                    <span class="zh">重置 Reset</span>
+                    <span class="en">Reset</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Alliance Analysis -->
+        <div class="section full-width" style="background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%); border: 3px solid #0f766e; margin-top: 30px;">
+            <h2>
+                <span class="icon">!!</span>
+                <span class="zh">六方聯盟分析 Six-Party Alliance Analysis</span>
+                <span class="en">Six-Party Alliance Analysis</span>
+            </h2>
+
+            <div class="mermaid">
+                graph TB
+                    subgraph YourCamp["你的天然盟友 Your Natural Allies"]
+                        YOU["Mayor Angula<br/>新市長<br/>人民代言人"]
+                        GLC["Green Living<br/>環保組織<br/>共同目標:<br/>綠地+低收入房"]
+                    end
+
+                    subgraph SwingVotes["中間派 Swing Votes - 爭取這些!"]
+                        NPC["NPC<br/>規劃委員會<br/>關心經濟+公平"]
+                        OB["Our Backyards<br/>居民組織<br/>關心交通+高度"]
+                    end
+
+                    subgraph Opposition["對手陣營 Opposition"]
+                        SC["Stellar Cove<br/>開發商<br/>必須投Yes"]
+                        IG["Illium Group<br/>競爭開發商"]
+                    end
+
+                    YOU -.->|"天然盟友"| GLC
+                    YOU -.->|"必須爭取!"| NPC
+                    YOU -.->|"可以交易"| OB
+
+                    SC -.->|"利益衝突但必須合作"| YOU
+
+                    style YOU fill:#dcfce7,stroke:#16a34a,stroke-width:4px
+                    style GLC fill:#d1fae5,stroke:#10b981,stroke-width:3px
+                    style NPC fill:#fef3c7,stroke:#f59e0b,stroke-width:3px
+                    style OB fill:#fef3c7,stroke:#f59e0b,stroke-width:3px
+                    style SC fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style IG fill:#fee2e2,stroke:#ef4444,stroke-width:2px
+            </div>
+
+            <div class="grid" style="margin-top: 25px;">
+                <div class="strategy-box">
+                    <h3 class="zh">天然盟友 Natural Allies</h3>
+                    <h3 class="en">Natural Allies</h3>
+                    <ul>
+                        <li class="zh"><strong>Green Living Collective</strong> - 共同要求更多綠地和低收入住房</li>
+                        <li class="zh">你們的利益高度重疊！</li>
+                        <li class="en"><strong>Green Living Collective</strong> - Share goals for more green space and affordable housing</li>
+                        <li class="en">Your interests strongly overlap!</li>
+                    </ul>
+                </div>
+
+                <div class="strategy-box" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-left: 5px solid #f59e0b;">
+                    <h3 class="zh">關鍵搖擺票 Key Swing Votes</h3>
+                    <h3 class="en">Key Swing Votes</h3>
+                    <ul>
+                        <li class="zh"><strong>NPC</strong> - 向他們強調項目仍能帶來稅收</li>
+                        <li class="zh"><strong>Our Backyards</strong> - 用「降低建築高度」交換他們的支持</li>
+                        <li class="en"><strong>NPC</strong> - Emphasize project still brings tax revenue</li>
+                        <li class="en"><strong>Our Backyards</strong> - Trade "lower building height" for their support</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h3 class="zh">對手但必須合作</h3>
+                    <h3 class="en">Opponents but Must Cooperate</h3>
+                    <ul>
+                        <li class="zh"><strong>Stellar Cove</strong> - 他們必須投 Yes 才能通過，你需要讓他們覺得項目還值得做</li>
+                        <li class="zh">給他們建築高度和娛樂場館作為「骨頭」</li>
+                        <li class="en"><strong>Stellar Cove</strong> - They must vote Yes for passage, make project still worthwhile for them</li>
+                        <li class="en">Give them building height and entertainment venues as "bones"</li>
+                    </ul>
+                </div>
+
+                <div class="strategy-box" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-left: 5px solid #3b82f6;">
+                    <h3 class="zh">投票數學 Vote Math</h3>
+                    <h3 class="en">Vote Math</h3>
+                    <p class="zh"><strong>需要 5 票（必須包含 Stellar Cove）：</strong></p>
+                    <p class="en"><strong>Need 5 votes (must include Stellar Cove):</strong></p>
+                    <ul>
+                        <li>1. Stellar Cove (must)</li>
+                        <li>2. You - Mayor Angula</li>
+                        <li>3. Green Living (likely ally)</li>
+                        <li>4. NPC (swing - persuade!)</li>
+                        <li>5. Our Backyards OR Illium (get one!)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Core Strategy -->
+        <div class="section full-width" style="margin-top: 30px;">
+            <h2>
+                <span class="icon">!!</span>
+                <span class="zh">核心交易策略 Core Trading Strategy</span>
+                <span class="en">Core Trading Strategy</span>
+            </h2>
+
+            <div class="mermaid">
+                graph LR
+                    subgraph Give["你可以「給」Give These"]
+                        G1["建築高度<br/>700-800 ft<br/>對你 0分"]
+                        G2["娛樂場館<br/>3-4 venues<br/>對你 5-10分"]
+                    end
+
+                    subgraph Get["你要「拿」Get These"]
+                        T1["低收入住房<br/>15% = 40分<br/>競選承諾！"]
+                        T2["IIF 補貼<br/>$250M = 20分<br/>政治勝利！"]
+                    end
+
+                    G1 -->|交換| T1
+                    G2 -->|交換| T2
+
+                    style T1 fill:#dcfce7,stroke:#16a34a,stroke-width:3px
+                    style T2 fill:#dcfce7,stroke:#16a34a,stroke-width:3px
+                    style G1 fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style G2 fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+            </div>
+
+            <div class="grid" style="margin-top: 20px;">
+                <div class="strategy-box">
+                    <h3 class="zh">Round 1 (20分鐘) - 建立立場</h3>
+                    <h3 class="en">Round 1 (20min) - Establish Position</h3>
+                    <ul>
+                        <li class="zh">明確表示你是新市長，立場不同於 Gabriel</li>
+                        <li class="zh">強調低收入住房是你的核心訴求</li>
+                        <li class="zh">探索各方在 Round 1 的結果</li>
+                        <li class="zh">不要在第一輪就接受低於 70 分的提案</li>
+                        <li class="en">Clearly state you're new mayor with different priorities</li>
+                        <li class="en">Emphasize low-income housing is your core demand</li>
+                        <li class="en">Explore what happened in Round 1</li>
+                        <li class="en">Don't accept proposals below 70 points in Round 1</li>
+                    </ul>
+                </div>
+
+                <div class="strategy-box">
+                    <h3 class="zh">Round 2 (50分鐘) - 最終妥協</h3>
+                    <h3 class="en">Round 2 (50min) - Final Compromise</h3>
+                    <ul>
+                        <li class="zh">這是最後機會！</li>
+                        <li class="zh">如果能拿到 15% 低收入住房 (40分)，其他可以彈性</li>
+                        <li class="zh">接受底線：至少 40 分</li>
+                        <li class="zh">記住：必須改變 Round 1 至少一個議題！</li>
+                        <li class="en">This is the last chance!</li>
+                        <li class="en">If you get 15% low-income (40pts), be flexible on others</li>
+                        <li class="en">Accept bottom line: at least 40 points</li>
+                        <li class="en">Remember: Must change at least one Round 1 issue!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Arguments -->
+        <div class="section full-width">
+            <h2>
+                <span class="icon">!!</span>
+                <span class="zh">核心論述 Key Arguments</span>
+                <span class="en">Key Arguments</span>
+            </h2>
+            <div class="grid">
+                <div class="strategy-box" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border-left: 5px solid #22c55e;">
+                    <h3 class="zh">對 Stellar Cove:</h3>
+                    <h3 class="en">To Stellar Cove:</h3>
+                    <blockquote style="border-left: 3px solid #22c55e; padding-left: 15px; margin: 10px 0; font-style: italic;">
+                        <span class="zh">"我理解你們需要獲利，我願意在建築高度和娛樂場館上給你們空間。但低收入住房和 IIF 補貼是我對選民的承諾，這是我的政治底線。如果我們能在這兩點上達成共識，其他我可以配合。"</span>
+                        <span class="en">"I understand you need profits. I'm willing to give you room on building height and entertainment venues. But low-income housing and IIF funds are my promises to voters - that's my political bottom line. If we can agree on these two, I can work with you on the rest."</span>
+                    </blockquote>
+                </div>
+
+                <div class="strategy-box" style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-left: 5px solid #10b981;">
+                    <h3 class="zh">對 Green Living:</h3>
+                    <h3 class="en">To Green Living:</h3>
+                    <blockquote style="border-left: 3px solid #10b981; padding-left: 15px; margin: 10px 0; font-style: italic;">
+                        <span class="zh">"我們目標一致。我會全力爭取 15% 低收入住房和更多綠地。我需要你們的支持來對抗開發商的壓力。"</span>
+                        <span class="en">"We share the same goals. I'll fight hard for 15% low-income housing and more green space. I need your support to push back against developer pressure."</span>
+                    </blockquote>
+                </div>
+
+                <div class="strategy-box" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-left: 5px solid #f59e0b;">
+                    <h3 class="zh">對 NPC:</h3>
+                    <h3 class="en">To NPC:</h3>
+                    <blockquote style="border-left: 3px solid #f59e0b; padding-left: 15px; margin: 10px 0; font-style: italic;">
+                        <span class="zh">"這個項目仍然會帶來就業和稅收，只是分配會更公平。更多低收入住房意味著更多的勞動力住在城裡，這對經濟發展是正面的。"</span>
+                        <span class="en">"This project will still bring jobs and tax revenue, just more equitably distributed. More affordable housing means more workers living in the city - that's positive for economic development."</span>
+                    </blockquote>
+                </div>
+
+                <div class="strategy-box" style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); border-left: 5px solid #6366f1;">
+                    <h3 class="zh">對 Our Backyards:</h3>
+                    <h3 class="en">To Our Backyards:</h3>
+                    <blockquote style="border-left: 3px solid #6366f1; padding-left: 15px; margin: 10px 0; font-style: italic;">
+                        <span class="zh">"我支持降低建築高度到 600 英尺，這會減少對你們社區的衝擊。作為交換，我希望你們能支持這個經過改良的提案。"</span>
+                        <span class="en">"I support lowering building height to 600 feet, reducing impact on your community. In exchange, I hope you can support this improved proposal."</span>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+
+        <!-- Complete Scoring Reference -->
+        <div class="quick-ref">
+            <h3>
+                <span class="zh">完整計分表 Complete Scoring Reference</span>
+                <span class="en">Complete Scoring Reference</span>
+            </h3>
+            <div class="grid" style="gap: 40px;">
+                <div>
+                    <h4 style="color: #a7f3d0; margin-bottom: 10px;">
+                        <span class="zh">高分選項 High Scoring</span>
+                        <span class="en">High Scoring Options</span>
+                    </h4>
+                    <ul>
+                        <li><span class="label">Low-income 15%:</span> <span class="value">40</span></li>
+                        <li><span class="label">Property 70-30:</span> <span class="value">20</span></li>
+                        <li><span class="label">Green 20 acres:</span> <span class="value">20</span></li>
+                        <li><span class="label">IIF $250M:</span> <span class="value">20</span></li>
+                        <li><span class="label">Height 600ft:</span> <span class="value">10</span></li>
+                        <li><span class="label">Entertain 4 venues:</span> <span class="value">10</span></li>
+                        <li style="border-top: 2px solid #a7f3d0; padding-top: 10px; margin-top: 10px;">
+                            <span class="label">Max Total:</span> <span class="value">120</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #ef4444; margin-bottom: 10px;">
+                        <span class="zh">零分/負分選項</span>
+                        <span class="en">Zero/Negative Options</span>
+                    </h4>
+                    <ul>
+                        <li><span class="label">Property 30-70:</span> <span class="value" style="color: #ef4444;">0</span></li>
+                        <li><span class="label">Green 14 acres:</span> <span class="value" style="color: #ef4444;">0</span></li>
+                        <li><span class="label">Height 700-800ft:</span> <span class="value" style="color: #ef4444;">0</span></li>
+                        <li><span class="label">IIF $1B:</span> <span class="value" style="color: #ef4444;">-10</span></li>
+                        <li style="border-top: 2px solid #ef4444; padding-top: 10px; margin-top: 10px;">
+                            <span class="label">Minimum:</span> <span class="value" style="color: #fbbf24;">40</span>
+                        </li>
+                        <li><span class="label">Target:</span> <span class="value" style="color: #22c55e;">95</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid #e2e8f0; color: #718096;">
+            <p class="zh">
+                <strong>記住：</strong> 最低 40 分 | 目標 95 分 | 必須改變 Round 1 至少一個議題 | P0 = 低收入住房 (40分)
+            </p>
+            <p class="en">
+                <strong>Remember:</strong> Minimum 40 pts | Target 95 pts | Must change at least one Round 1 issue | P0 = Low-income housing (40pts)
+            </p>
+            <p style="margin-top: 10px; font-weight: bold; color: #0f766e;">
+                <span class="zh">你是人民的市長！為普通市民爭取權益！</span>
+                <span class="en">You are the People's Mayor! Fight for ordinary citizens!</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#0f766e',
+                primaryTextColor: '#134e4a',
+                primaryBorderColor: '#14b8a6',
+                lineColor: '#4a5568',
+                secondaryColor: '#f7fafc',
+                tertiaryColor: '#e2e8f0'
+            }
+        });
+
+        // Language toggle
+        function toggleLanguage() {
+            document.body.classList.toggle('en-mode');
+        }
+
+        // Calculator functionality
+        function calculateScore() {
+            let total = 0;
+            const issues = ['issue1', 'issue2', 'issue3', 'issue4', 'issue5', 'issue6'];
+            let selectedCount = 0;
+
+            issues.forEach(issue => {
+                const selected = document.querySelector(`input[name="${issue}"]:checked`);
+                if (selected) {
+                    total += parseInt(selected.value);
+                    selectedCount++;
+                }
+            });
+
+            // Update score display
+            document.getElementById('totalScore').textContent = total;
+
+            // Update verdict
+            const verdictEl = document.getElementById('verdict');
+            verdictEl.className = 'score-verdict';
+
+            const isEnMode = document.body.classList.contains('en-mode');
+
+            if (selectedCount < 6) {
+                verdictEl.innerHTML = isEnMode ? 'Select all 6 issues' : '請選擇全部 6 個議題';
+                verdictEl.classList.add('verdict-neutral');
+            } else if (total >= 95) {
+                verdictEl.innerHTML = isEnMode ? 'EXCELLENT! Vote YES!' : '優秀！投 YES！';
+                verdictEl.classList.add('verdict-excellent');
+            } else if (total >= 40) {
+                verdictEl.innerHTML = isEnMode ? 'Acceptable, Vote YES' : '可接受，投 YES';
+                verdictEl.classList.add('verdict-good');
+            } else {
+                verdictEl.innerHTML = isEnMode ? 'TOO LOW! Vote NO!' : '太低！投 NO！';
+                verdictEl.classList.add('verdict-poor');
+            }
+        }
+
+        function resetCalculator() {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => {
+                radio.checked = false;
+            });
+
+            document.getElementById('totalScore').textContent = '0';
+            const isEnMode = document.body.classList.contains('en-mode');
+            document.getElementById('verdict').innerHTML = isEnMode ? 'Select all options' : '請選擇選項';
+            document.getElementById('verdict').className = 'score-verdict verdict-neutral';
+        }
+
+        // Add event listeners to all radio buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => {
+                radio.addEventListener('change', calculateScore);
+            });
+        });
+    </script>
+</body>
+</html>
